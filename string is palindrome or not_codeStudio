@@ -35,7 +35,7 @@ bool checkPalindrome(string s)
             temp.push_back(s[j]);
         }
 }
-    for(int j=0;j<s.length();j++){
+    for(int j=0;j<temp.length();j++){
        temp[j]=toLower(temp[j]);
     }
         return toPalindrome(temp);
