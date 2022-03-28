@@ -1,0 +1,37 @@
+/****************************************************************
+    Following is the class structure of the Node class:
+    class Node
+    {
+    public:
+        int data;
+        Node *next;
+        Node(int data)
+        {
+            this->data = data;
+            this->next = NULL;
+        }
+    };
+*****************************************************************/
+#include<map>
+Node *removeDuplicates(Node *head)
+{
+   map<int,int>visited;
+    if(head==NULL)
+        return head;
+    Node* curr=head;
+    visited[curr->data]=1;
+    Node* temp=curr;
+    curr=curr->next;
+    while(curr!=NULL){
+     if(visited[curr->data]){
+         temp->next=curr->next;
+         free(curr);
+     }
+        else{
+            visited[curr->data]=1;
+            temp=curr;
+        }
+        curr=temp->next;
+    }
+return head;
+}
