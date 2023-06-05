@@ -1,0 +1,41 @@
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        int n=matrix.size();
+        int m=matrix[0].size();
+        int marker=-999999;
+        for(int i=0;i<n;i++){
+            for (int j=0;j<m;j++){
+                if(matrix[i][j]==0){
+                    markRow(matrix,n,m,j);
+                    markCol(matrix,n,m,i);
+                }
+            }
+        }
+      for(int i=0;i<n;i++){
+            for (int j=0;j<m;j++){
+                 if(matrix[i][j]==marker){
+                matrix[i][j]=0;
+                 }
+            }
+        }
+        
+
+    }
+    void markCol(vector<vector<int>>& matrix,int n, int m,int i){
+       int marker=-999999;
+        for(int j=0;j<m;j++){
+            if(matrix[i][j]!=0){
+                matrix[i][j]=marker;
+            }
+        }
+    }
+    void markRow(vector<vector<int>>& matrix,int n, int m,int j){
+         int marker=-999999;
+          for(int i=0;i<n;i++){
+            if(matrix[i][j]!=0){
+                matrix[i][j]=marker;
+            }
+        }
+    }
+};
