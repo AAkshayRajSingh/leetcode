@@ -1,0 +1,23 @@
+class Solution {
+public:
+    double myPow(double x, int n) {
+        double pow=1.000;
+        if(n==0)
+        return 1.0;
+        long long nn= n;
+        if(nn<0){
+            nn=-1*nn;
+            x=1/x;
+          // n = static_cast<int>(abSN);
+        }
+        while(nn!=0){
+            if(nn%2==1)
+            pow=pow*x;
+        x*=x;
+        nn/=2;
+        }
+        return pow;
+    }
+};
+TC:O(logn)
+SC:O(1)
