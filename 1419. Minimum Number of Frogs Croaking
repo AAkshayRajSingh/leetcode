@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int minNumberOfFrogs(std::string croakOfFrogs) {
+        int c=0,r=0,o=0,a=0,k=0,inUse=0,answer=0;
+        for(int i=0;i<croakOfFrogs.length();i++){
+            char ch=croakOfFrogs[i];
+            if(ch=='c'){
+                c+=1;
+                inUse+=1;
+            }
+            if(ch=='r'){
+                r+=1;
+              
+            }
+             if(ch=='o'){
+                o+=1;
+               
+            } if(ch=='a'){
+                a+=1;
+             
+            } if(ch=='k'){
+                k+=1;
+                inUse -= 1;
+            }
+           
+            answer=std::max(answer,inUse);
+
+
+           if(c<r||r<o||o<a||a<k)
+           {
+               return -1;
+           }
+        }
+        if(inUse==0 && c==r && r==o && o==a && a==k){
+             return answer;
+        }
+        return -1;
+    }
+};
+TC:O(N)
+SC:O(1)
