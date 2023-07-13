@@ -1,0 +1,31 @@
+class Solution {
+public:
+   void findCombinationSum(int index,int target,vector<int>& candidates,vector<int>& ds,vector<vector<int>> &ans){
+       if(target==0){
+           ans.push_back(ds);
+           return;
+       }
+       for(int i=index;i<candidates.size();i++){
+           if(i>index && candidates[i]==candidates[i-1]) continue;
+           if(candidates[i]>target) break;
+           ds.push_back(candidates[i]);
+           findCombinationSum(i+1,target-candidates[i],candidates,ds,ans);
+           ds.pop_back();
+       }
+   }
+public:
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        sort(candidates.begin(),candidates.end());
+        vector<vector<int>> ans;
+        vector<int> ds;
+        findCombinationSum(0,target,candidates,ds,ans);
+        return ans;
+
+    }
+};
+
+Time Complexity:O(2^n*k)
+
+Reason: Assume if all the elements in the array are unique then the no. of subsequence you will get will be O(2^n). we also add the ds to our ans when we reach the base case that will take “k”//average space for the ds.
+
+Space Complexity:O(k*x)
