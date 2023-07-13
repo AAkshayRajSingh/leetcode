@@ -1,0 +1,27 @@
+class Solution
+{
+    
+public:
+    void subsetSupport(int index,vector<int> ans,vector<int> arr,int n,int sum){
+        if(index==n){
+            ans.push_back(sum);
+            return;
+        }
+        //to add in the array
+        subsetSupport(index+1,ans,arr,n,sum+arr[index]);
+        //tp remove the exclude.
+        subsetSupport(index+1,ans,arr,n,sum);
+        
+    }
+    vector<int> subsetSums(vector<int> arr, int N)
+    {
+        // Write Your Code here
+        vector<int> ans;
+        subsetSupport(0,ans,arr,N,0);
+        sort(ans.begin(),ans.end());
+        return ans;
+    }
+    
+};
+TC: O(2^n)+O(2^n log(2^n))
+SC:O(2^n)
