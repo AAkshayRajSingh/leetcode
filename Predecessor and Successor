@@ -1,0 +1,35 @@
+class Solution
+{
+    public:
+    void succesor(Node* root,Node*& suc,int ind){
+        suc=NULL;
+       while(root!=NULL){
+        if(ind >= root->key ){
+            root=root->right;
+        }
+        else{
+            suc=root;
+            root=root->left;
+        }
+       }
+    }
+    void predecessor(Node* root, Node*& pre,int ind){
+       pre=NULL;
+        while(root!=NULL){
+            if(ind <= root->key){
+                root=root->left;
+            }
+            else
+            {
+                pre=root;
+                root=root->right;
+            }
+        }
+    }
+    void findPreSuc(Node* root, Node*& pre, Node*& suc, int key)
+    {
+        // Your code goes here
+        succesor(root,suc,key);
+        predecessor(root,pre,key);
+    }
+};
