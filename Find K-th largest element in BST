@@ -1,0 +1,33 @@
+int KthLargestNumber(TreeNode<int>* root, int k) 
+{
+    // Write your code here.
+    int ans=-1;
+    int cnt=0;
+    if(root==NULL) return -1;
+    TreeNode<int>* curr=root;
+    while(curr!=NULL){
+        if(curr->right ==NULL){
+            cnt++;
+            if(cnt==k)  return ans=curr->data;
+            curr=curr->left;
+        }
+        else{
+               TreeNode<int>* prev=curr->right;
+              while(prev->left!=NULL && prev->left!=curr){
+                  prev=prev->left;
+              }
+              if(prev->left==NULL){
+                  prev->left=curr;
+                  curr=curr->right;
+    
+              }
+              else{
+                  prev->left=NULL;
+                  cnt++;
+                  if(cnt==k) return ans=curr->data;
+                  curr=curr->left;
+              }
+        }
+    }
+return -1;
+}
