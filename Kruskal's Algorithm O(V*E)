@@ -1,0 +1,46 @@
+struct util{
+   int v;
+   int u;
+   int w;
+};
+
+class Solution{
+public:
+//Custom comparator for sorting util class
+static bool comparator(util a,util b){
+    return a.w<b.w;
+}
+//Find operation O(V)
+int find(int x,vector<int>&parent){
+    if(parent[x]==x)return x;
+    return find(parent[x],parent);
+}
+//Union operation O(V)
+void union_u(int x,int y,vector<int>&parent){
+    x=find(x,parent);
+    y=find(y,parent);
+    parent[y]=x;
+}
+int spanningTree(int V, vector<vector<int>> adj2[]){
+   vector<util>graph;
+   //Create my custom list for graph type util{source,dest,weight}
+   for(int i=0;i<V;i++){
+       for(auto j:adj2[i]){
+           graph.push_back({i,j[0],j[1]});
+               }
+   }
+   //Sort list in ascending order
+   sort(graph.begin(),graph.end(),comparator);
+   vector<int>parent(V);
+   int ans=0;
+   for(int i=0;i<V;i++)parent[i]=i;
+   for(int i=0;i<graph.size();i++){
+       int x=find(graph[i].v,parent);
+       int y=find(graph[i].u,parent);
+       if(x==y)continue;  // Cycle found then dont add edge in mst
+       ans+=graph[i].w;  // add edge in mst (no cycle)
+       union_u(x,y,parent);
+   }
+   return ans;
+   }
+};
