@@ -1,0 +1,71 @@
+class Solution {
+public:
+//recursion
+/*int solve1(int index,int target,vector<int>& nums){
+ if(target==0) return true;
+ if(index==0){
+  return nums[0]==target;
+ } 
+ int nPick=solve1(index-1,target,nums);
+ int Pick=false;
+ if(nums[index]<=target)
+ {
+     Pick=solve1(index-1,target-nums[index],nums);
+ }
+ return nPick|Pick;
+}
+//Memoization
+int solve2(int index,int target,vector<int>& nums,vector<vector<int>> &dp){
+ if(target==0)
+ return true;
+ if(index==0){
+     return (nums[0]==target);
+ }
+ if(dp[index][target]!=-1) return dp[index][target];
+ int nPick=solve2(index-1,target,nums,dp);
+ int Pick=false;
+ if(nums[index]<=target){
+     Pick=solve2(index-1,target-nums[index],nums,dp);
+ }
+ return dp[index][target]=nPick|Pick;
+}
+*/
+int solve3(vector<int> &nums,int target){
+    int n=nums.size();
+    vector<vector<int>> dp(n,vector<int>(target+1,0));
+    for(int i=0;i<n;i++){
+        dp[i][0]=1;
+    }
+    if(nums[0]<=target){
+        dp[0][nums[0]]=1;
+    }
+    for(int i=1;i<n;i++){
+        for(int j=1;j<=target;j++){
+            bool np=dp[i-1][j];
+            bool p=0;
+            if(nums[i]<=j){
+                p=dp[i-1][j-nums[i]];
+            }
+            dp[i][j]=p||np;
+        }
+    }
+   return dp[n-1][target];
+}
+    bool canPartition(vector<int>& nums) {
+      int n=nums.size();
+      int sum=0;
+      //int target=sum/2;
+      
+      for(auto &it:nums)  {
+          sum+=it;
+      }
+      vector<vector<int>> dp(n,vector<int>(sum/2+1,-1));
+      if(sum%2!=0) return false;
+      else{
+         //return solve1(n-1,sum/2,nums);
+         //return solve2(n-1,sum/2,nums,dp);
+         return solve3(nums,sum/2);
+      }
+
+    }
+};
