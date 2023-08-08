@@ -1,0 +1,43 @@
+class Solution {
+public:
+/*
+int f(int i,int j,vector<vector<int>>& grid,vector<vector<int>> &dp){
+    if(i==0 && j==0) return grid[i][j];
+    if(i<0 || j<0) return INT_MAX;
+    if(dp[i][j]!=-1) return dp[i][j];
+    int up=f(i-1,j,grid,dp);
+    int left=f(i,j-1,grid,dp);
+    int result=grid[i][j]+min(left,up);
+    return dp[i][j]=result;
+
+}*/
+    int minPathSum(vector<vector<int>>& grid) {
+        int n=grid.size();
+        int m=grid[0].size();
+        vector<vector<int>> dp(n,vector<int>(m,0));
+           vector<int> prev(m,0);
+        for(int i=0;i<n;i++){
+            vector<int> cur(m,0);
+            for(int j=0;j<m;j++){
+                if(i==0 && j==0) cur[j]=grid[i][j];
+                else{
+                int up=grid[i][j];
+                if(i>0)
+                //prev row of current column
+                up+=prev[j];
+                else
+                up+=1e9;
+                int left=grid[i][j];
+                if(j>0)
+                //current rows prev column
+                left+=cur[j-1];
+                else
+                left+=1e9;
+                cur[j]=min(left,up);
+            }
+            }
+            prev=cur;
+        }
+        return prev[m-1];
+    }
+};
