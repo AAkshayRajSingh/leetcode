@@ -1,0 +1,39 @@
+class Solution {
+public:
+int frecursion(int ind,int amount,vector<int>& coins){
+    if(ind==0){
+       if(amount%coins[0]==0)  return amount/coins[0];
+       return 1e9;
+    }
+    int notTake=0+frecursion(ind-1,amount,coins);
+    int Take=INT_MAX;
+    if(coins[ind]<=amount)
+    {
+        Take=1+frecursion(ind,amount-coins[ind],coins);
+    }
+    return min(Take,notTake);
+}
+int f(int ind,int amount,vector<int>& coins,vector<vector<int>> &dp){
+    if(ind==0){
+        if(amount%coins[ind]==0) return amount/coins[ind];
+        else
+        return 1e9;
+    }
+    if(dp[ind][amount]!=-1) return dp[ind][amount];
+    int NotTake=0+f(ind-1,amount,coins,dp);
+    int Take=INT_MAX;
+    if(coins[ind]<=amount){
+        Take=1+f(ind,amount-coins[ind],coins,dp);
+    }
+    return dp[ind][amount]=min(Take,NotTake);
+}
+    int coinChange(vector<int>& coins, int amount) {
+        int n=coins.size();
+        vector<vector<int>> dp(n,vector<int>(amount+1,-1));
+        int a= f(n-1,amount,coins,dp);
+        if(a>=1e9)
+        return -1;
+        else
+        return a;
+    }
+};
