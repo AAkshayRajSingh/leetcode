@@ -1,0 +1,63 @@
+struct Node{
+    Node* links[26];
+    int cnt=0;
+    bool containsKey(char ch){
+        return (links[ch-'a']!=NULL);
+    }
+    void put(char ch,Node* Node){
+        cnt++;
+         links[ch-'a']=Node;
+    }
+    Node* get(char ch){
+        return links[ch-'a'];
+    }
+};
+class Trie{
+    private:
+    Node* root;
+    public:
+    Trie(){
+        root=new Node();
+    }
+    void insert(string &word){
+        Node* node=root;
+        for(int i=0;i<word.length();i++){
+            if(!node->containsKey(word[i])){
+                node->put(word[i],new Node());
+                
+            }
+            node=node->get(word[i]);
+        }
+    }
+    string getPrefix(string &word){
+        Node *node=root;
+       // int cnt=0;
+        string ans="";
+        for(int i=0;i<word.length();i++){
+            if(node->cnt==1){
+                ans+=word[i];
+                node=node->get(word[i]);
+            }
+            else{
+                return ans;
+            }
+        }
+        return ans;
+    }
+};
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        Trie trie;
+        string s;
+        int minSize=201;
+        for(int i=0;i<strs.size();i++){
+            trie.insert(strs[i]);
+            if(strs[i].size()<minSize){
+                s=strs[i];
+                minSize=strs[i].size();
+            }
+        }
+        return trie.getPrefix(s);
+    }
+};
