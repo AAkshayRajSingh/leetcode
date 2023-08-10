@@ -1,0 +1,77 @@
+struct Node{
+    Node* links[26];
+    bool flag=false;
+    bool containsKey(char ch){
+        return(links[ch-'a']!=NULL);
+    }
+    void put(char ch,Node* Node){
+        links[ch-'a']=Node;
+    }
+    Node* get(char ch){
+        return links[ch-'a'];
+    }
+    void isSet(){
+        flag=true;
+    }
+    bool isEnd()
+        {
+            return flag;
+        }
+};
+class Trie{
+    public:
+    Node* root;
+    Trie(){
+        root=new Node();
+    }
+    void insert(string word){
+        Node* node=root;
+        for(int i=0;i<word.length();i++){
+            if(!node->containsKey(word[i])){
+                node->put(word[i],new Node());
+            }
+            node=node->get(word[i]);
+        }
+        node->isSet();
+    }
+    vector<string> search(string word){
+        Node* node=root;
+          vector<string> prod;
+        for(int i=0;i<word.length();i++){
+            if(!node->containsKey(word[i])) return {};
+            node=node->get(word[i]);
+        }
+        dfs(node,word,prod);
+        return prod;
+    }
+    void dfs(Node *node,string &s,vector<string> &prod){
+        if(prod.size()==3) return;
+        if(node->isEnd()){
+            prod.push_back(s);
+        }
+        for(int i='a';i<='z';i++){
+            if(prod.size()==3) return;
+            if(node->links[i-'a']){
+                s+=i;
+                dfs(node->links[i-'a'],s,prod);
+                s=s.substr(0,s.size()-1);
+            }
+        }
+    }
+};
+class Solution {
+public:
+    vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {
+        vector<vector<string>> ans;
+        Trie* trie=new Trie();
+        for(string &Word:products){
+            trie->insert(Word);
+        }
+        string pre="";
+        for(char &ch : searchWord){
+            pre+=ch;
+            ans.push_back(trie->search(pre));
+        }
+        return ans;
+    }
+};
