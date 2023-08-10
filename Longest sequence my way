@@ -1,0 +1,139 @@
+/*#include <bits/stdc++.h> 
+struct Node{
+    Node* links[26];
+    bool flag=false;
+    bool containsKey(char ch){
+        return (links[ch-'a']!=NULL);
+    }
+    void put(char ch,Node *node){
+        links[ch-'a']=node;
+    }
+    Node* get(char ch){
+        return links[ch-'a'];
+    }
+    void setEnd(){
+        flag=true;
+    }
+    bool isEnd(){
+        return flag;
+    }
+};
+class Trie{
+    public:
+    Node* root;
+    
+    Trie(){
+        root=new Node();
+    }
+   void insert(string word){
+        Node *node=root;
+        for(int i=0;i<word.length();i++){
+            if(!node->containsKey(word[i]))
+            {
+                node->put(word[i],new Node());
+            }
+           node=node->get(word[i]) ;
+        }
+      node->setEnd();
+    }
+    
+bool checkIfPrefixExists(string word){
+    Node* node = root;
+    for(auto c:word){
+            node = node->get(c);
+            if (!node->isEnd()) {
+                return false;
+            }
+    }
+    return true;
+}
+};
+string completeString(int n, vector<string> &a){
+    // Write your code here.
+    Trie* trie=new Trie();
+    for(auto s: a){
+        trie->insert(s);
+    }
+    string longest;
+    for(auto s: a){
+        if(trie->checkIfPrefixExists(s)){
+            if(s.length() > longest.length()){
+                longest = s;
+            } else if(s.length() == longest.length() && s < longest){
+                longest = s;
+            }
+        } 
+    }
+    if(longest.size() == 0) return "None";
+    return longest;
+}
+*/
+#include <bits/stdc++.h> 
+struct Node{
+    Node* links[26];
+    bool flag=false;
+    bool containsKey(char ch){
+        return (links[ch-'a']!=NULL);
+    }
+    void put(char ch,Node *Node){
+        links[ch-'a']=Node;
+    }
+    Node* get(char ch){
+        return (links[ch-'a']);
+    }
+    void setEnd(){
+        flag=true;
+    }
+    bool isEnd(){
+        return flag;
+    }
+};
+class Trie{
+    public:
+    Node* root;
+    Trie(){
+        root=new Node();
+    }
+    public:
+    void insert(string &word){
+        Node *node=root;
+        for(int i=0;i<word.length();i++){
+            if(!node->containsKey(word[i])){
+                node->put(word[i], new Node());
+            }
+            node=node->get(word[i]);
+        }
+        node->setEnd();
+    }
+    bool checkLongestPrefix(string &word){
+        Node *node=root;
+        for(auto c:word){
+                node=node->get(c);
+                if(!node->isEnd()) return false;
+            
+        }
+        return true;
+    }
+};
+string completeString(int n, vector<string> &a){
+    // Write your code here.
+    Trie* trie=new Trie();
+    string longest;
+    for(auto it:a){
+        trie->insert(it);
+    }
+    for(auto it:a){
+        if(trie->checkLongestPrefix(it)){
+            if(longest.length()<it.length())
+            {
+                longest=it;
+            }
+            else if (longest.length()==it.length() )
+            {
+                if(it<longest) longest=it;
+            }
+        }
+    }
+    if(longest.size()==0) return "None";
+    return longest;
+}
