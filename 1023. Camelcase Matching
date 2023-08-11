@@ -1,0 +1,72 @@
+struct Node{
+    Node* links[58];
+    bool flag=false;
+    int ele=0;
+    bool containsKey(char ch){
+        return (links[ch-'A']!=NULL);
+    }
+    void put(char ch, Node* Node){
+         links[ch-'A']=Node;
+    }
+    Node* get(char ch){
+        return (links[ch-'A']);
+    }
+    void isSet(){
+        flag=true;
+    }
+    bool isEnd(){
+        return flag;
+    }
+};
+class Trie{
+    private:
+    Node* root;
+    public:
+    Trie(){
+        root=new Node();
+    }
+    void insert(string word){
+        Node* node=root;
+        for(int i=0;i<word.size(); i++){
+            if(!node->containsKey(word[i])){
+                node->put(word[i],new Node());
+            }
+            node=node->get(word[i]);
+        }
+        node->isSet();
+    }
+    bool check(string word){
+        Node* node=root;
+        for(int i=0;i<word.size();i++){
+            if(node->containsKey(word[i])){
+                node=node->get(word[i]);
+            }
+            else{
+                if(word[i]>=97 and word[i]<=122){
+                    continue;
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+        if(node->isEnd()){
+            return true;
+        }
+        return false;
+    }
+};
+class Solution {
+public:
+    vector<bool> camelMatch(vector<string>& queries, string pattern) {
+        Trie* trie=new Trie();
+        trie->insert(pattern);
+        vector<bool> ans;
+        int n=queries.size();
+        for(int i=0;i<n;i++){
+            bool pos=trie->check(queries[i]);
+            ans.push_back(pos);
+        }
+        return ans;
+    }
+};
