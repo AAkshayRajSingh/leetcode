@@ -1,0 +1,18 @@
+class Solution {
+public:
+    void dfs(int i,vector<vector<int>>& rooms,vector<int>& vis){
+        vis[i]=1;
+        for(auto it:rooms[i]){
+            if(!vis[it])
+            dfs(it,rooms,vis);
+        }
+    }
+    bool canVisitAllRooms(vector<vector<int>>& rooms) {
+       vector<int> visited(rooms.size(),0);
+       dfs(0,rooms,visited);
+       for(auto it:visited){
+           if(!it) return false;
+       } 
+       return true;
+    }
+};
