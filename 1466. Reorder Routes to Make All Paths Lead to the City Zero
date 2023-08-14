@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int count=0;
+    void dfs(int u,int parent,unordered_map<int,vector<pair<int,int>>> &adj){
+        for(auto &it:adj[u]){
+            int v=it.first;
+            int check=it.second;
+            if(v!=parent){
+                if(check==1){
+                    count++;
+                }
+                dfs(v,u,adj);
+            }
+        }
+    }
+    int minReorder(int n, vector<vector<int>>& connections) {
+       unordered_map<int,vector<pair<int,int>>> adj;
+       for(auto &it:connections){
+            int a=it[0];
+            int b=it[1];
+            adj[a].push_back({b,1});
+            adj[b].push_back({a,0});
+       }
+       dfs(0,-1,adj);
+       return count;
+    }
+};
