@@ -1,0 +1,15 @@
+class Solution {
+public:
+int sum=0;
+    TreeNode* convertBST(TreeNode* root) {
+        if(root==NULL) return root;
+        //int sum=0;
+        //TreeNode* curr=root;
+        convertBST(root->right);
+        sum+=root->val;
+        root->val=sum;
+        
+        convertBST(root->left);
+        return root;
+    }
+};
