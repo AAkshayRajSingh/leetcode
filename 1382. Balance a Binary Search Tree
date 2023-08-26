@@ -1,0 +1,22 @@
+class Solution {
+public:
+    TreeNode* helper2(vector<int>& v,int start,int end){
+        if(start>end) return NULL;
+        int mid=start+(end-start)/2;
+        TreeNode* node=new TreeNode(v[mid]);
+        node->left=helper2(v,start,mid-1);
+        node->right=helper2(v,mid+1,end);
+        return node;
+    }
+    void helper1(TreeNode* root,vector<int> &v){
+        if(!root) return;
+        helper1(root->left,v);
+        v.push_back(root->val);
+        helper1(root->right,v);
+    }
+    TreeNode* balanceBST(TreeNode* root) {
+        vector<int> v;
+        helper1(root,v);
+        return helper2(v,0,v.size()-1);
+    }
+};
