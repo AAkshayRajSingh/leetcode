@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<int> getAllElements(TreeNode* root1, TreeNode* root2) {
+        vector<int> ans;
+        if(!root1 && !root2) return ans;
+        if(root1){
+        vector<int> left1=getAllElements(root1->left,nullptr);
+        ans.insert(ans.end(),left1.begin(),left1.end());
+        ans.push_back(root1->val);
+        vector<int> right1=getAllElements(root1->right,nullptr);
+        ans.insert(ans.end(),right1.begin(),right1.end());
+        }       
+    if(root2) {
+        vector<int> left2=getAllElements(nullptr,root2->left);
+        ans.insert(ans.end(),left2.begin(),left2.end());
+        ans.push_back(root2->val);
+        vector<int> right2=getAllElements(nullptr,root2->right);
+        ans.insert(ans.end(),right2.begin(),right2.end());
+        }
+        sort(ans.begin(),ans.end());
+        return ans;
+    }
+};
