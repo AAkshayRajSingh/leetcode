@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int maxAncestorDiff(TreeNode* root) {
+        return dfs(root,root->val,root->val);
+    }
+    int dfs(TreeNode* root,int mn,int mx){
+        if(root==NULL) return mx-mn;
+
+        mn=min(mn,root->val);
+        mx=max(mx,root->val);
+
+        int leftMax=dfs(root->left,mn,mx);
+        int rightMax=dfs(root->right,mn,mx);
+
+        return max(leftMax,rightMax);
+    }
+};
