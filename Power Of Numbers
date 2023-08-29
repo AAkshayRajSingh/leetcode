@@ -1,0 +1,16 @@
+class Solution{
+    public:
+    //You need to complete this fucntion
+    int mod=1000000007;
+   
+    long long power(int N, int R) {
+        if (R == 0)
+            return 1;
+        if (R == 1)
+            return (N);
+        long long know = power(N, R / 2)%mod;
+        know=(know*know)%mod;
+        if(R&1) know=(know*N)%mod;
+        return know;
+    }
+};
