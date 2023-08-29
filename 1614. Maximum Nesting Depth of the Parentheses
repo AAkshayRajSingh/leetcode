@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int myComparator(const int& a,const int& b){
+        if(a>b)
+        return a;
+        else 
+        return b;
+    }
+    int maxDepth(string s) {
+        if(s.empty())
+        return 0;
+        int numPar=0;
+        int maxPar=INT_MIN;
+        for(const auto &it:s){
+            if(it=='(')
+            numPar++;
+            else if(it==')')
+            numPar--;
+            maxPar=myComparator(numPar,maxPar);
+        }
+        return maxPar;
+    }
+};
