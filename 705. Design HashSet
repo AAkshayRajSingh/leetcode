@@ -1,0 +1,26 @@
+class MyHashSet {
+public:
+    vector<int> hashSet;
+    MyHashSet() {
+        
+    }
+    
+    void add(int key) {
+      if(!contains(key)){
+          hashSet.push_back(key);
+      }
+        
+    }
+    
+    void remove(int key) {
+        hashSet.erase(std::remove(hashSet.begin(),hashSet.end(),key),hashSet.end());
+    }
+    
+    bool contains(int key) {
+        for(int i=0;i<hashSet.size();i++){
+            if(hashSet[i]==key)
+            return true;
+        }
+        return false;
+    }
+};
