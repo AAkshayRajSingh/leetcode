@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int GCD(int a,int b){
+        if(a<b) swap(a,b);
+        int rem;
+        while(b!=0){
+            rem=a%b;
+            a=b;
+            b=rem;
+        }
+        return a;
+    }
+    ListNode* insertGreatestCommonDivisors(ListNode* head) {
+        if(!head || !head->next)
+        return head;
+        ListNode* curr=head;
+        while(curr->next!=NULL){
+            int gcd=GCD(curr->val,curr->next->val);
+            ListNode* greatestCommon=new ListNode(gcd);
+            greatestCommon->next=curr->next;
+            curr->next=greatestCommon;
+
+            curr=curr->next->next;
+        }
+        return head;
+    }
+    
+};
