@@ -1,0 +1,19 @@
+class Solution {
+public:
+    ListNode* sortList(ListNode* head) {
+        vector<int> v;
+        while(head){
+            v.push_back(head->val);
+            head=head->next;
+        }
+        int n=v.size();
+        sort(v.begin(),v.end());
+        ListNode* dummy=new ListNode();
+        ListNode* node=dummy;
+        for(int i=0;i<n;i++){
+            node->next =new ListNode(v[i]);
+            node=node->next;
+        }
+        return dummy->next;
+    }
+};
