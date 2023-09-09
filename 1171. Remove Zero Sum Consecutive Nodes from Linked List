@@ -1,0 +1,31 @@
+class Solution {
+public:
+    ListNode* removeZeroSumSublists(ListNode* head) {
+        int ps=0;
+        unordered_map<int,ListNode*> mp;
+        ListNode* dummy=new ListNode(0);
+        dummy->next=head;
+        mp[0]=dummy;
+        while(head){
+            ps+=head->val;
+
+            if(mp.find(ps)!=mp.end()){
+                int PS=ps;
+                ListNode* start=mp[ps];
+                ListNode* temp=start;
+                while(temp!=head){
+                    temp=temp->next;
+                    PS+=temp->val;
+                    if(temp!=head)
+                    mp.erase(PS);
+                }
+                start->next=head->next;
+            }
+            else{
+                mp[ps]=head;
+            }
+            head=head->next;
+        }
+        return dummy->next;
+    }
+};
