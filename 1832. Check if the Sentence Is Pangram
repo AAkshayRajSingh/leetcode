@@ -1,0 +1,7 @@
+class Solution {
+public:
+    bool checkIfPangram(string s) {
+        const unordered_set<char> seen(s.begin(),s.end());
+        return seen.size()==26;
+    }
+};
