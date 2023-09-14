@@ -1,0 +1,18 @@
+class Solution {
+public:
+    vector<int> distinctDifferenceArray(vector<int>& nums) {
+        unordered_map<int,int> mp,rmp;
+        vector<int> ans;
+        for(auto num: nums){
+            rmp[num]++;
+        }
+        for(auto num:nums){
+            mp[num]++;
+            rmp[num]--;
+            if(rmp[num]==0) rmp.erase(num);
+            int diff=mp.size()-rmp.size();
+            ans.push_back(diff);
+        }
+        return ans;
+    }
+};
