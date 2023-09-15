@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int sumOfUnique(vector<int>& nums) {
+        unordered_map<int,int> mp;
+        int count=0;
+        for(int i=0;i<nums.size();i++){
+            mp[nums[i]]++;
+        }
+        for(auto it:mp){
+            if(it.second==1)
+            count=count+it.first;
+        }
+        return count;
+    }
+};
