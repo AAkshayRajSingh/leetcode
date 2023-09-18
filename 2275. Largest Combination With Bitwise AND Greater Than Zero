@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int largestCombination(vector<int>& candidates) {
+        vector<int> binarySetCount(32);
+        for(int i=0;i<binarySetCount.size();i++){
+            for(auto el:candidates){
+                if(((el>>i)&1)==1){
+                    binarySetCount[i]++;
+                }
+            }
+        }
+        int ans=0;
+        for(auto el:binarySetCount){
+            ans=max(ans,el);
+        }
+        return ans;
+    }
+};
