@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int balancedStringSplit(string s) {
+        int total=0;
+        int ans=0;
+        for(auto c:s){
+            if(c=='L')total++;
+            else total--;
+            if(total==0) ans++;
+        }
+        return ans;
+    }
+};
