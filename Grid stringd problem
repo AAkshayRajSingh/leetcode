@@ -1,0 +1,34 @@
+class Solution {
+public:
+    vector<int> executeInstructions(int n, vector<int>& startPos, string s) {
+        vector<int> ans;
+        for(int i=0;i<s.size();i++){
+            int countMoves=0;
+            int xIndex=startPos[0];
+            int yIndex=startPos[1];
+            for(int j=i;j<s.size();j++){
+                if(s[j]=='U'){
+                    xIndex--;
+                }
+                if(s[j]=='D'){
+                    xIndex++;
+                }
+                if(s[j]=='R'){
+                    yIndex++;
+                }
+                if(s[j]=='L'){
+                    yIndex--;
+                }
+                if(xIndex<0 || yIndex<0 || xIndex>=n || yIndex>=n){
+                    break;
+                }
+                else{
+                    countMoves++;
+                }
+                
+            }
+            ans.push_back(countMoves);
+        }
+        return ans;
+    }
+};
