@@ -1,0 +1,24 @@
+class Solution {
+public:
+    bool isInterleave_helper(string &s1, string &s2, string &s3,int i,int j,vector<vector<int>> &dp){
+        if(dp[i][j]!=-1)
+        return dp[i][j];
+        if(i+j==s3.size())
+        return 1;
+        bool ans=0;
+        if(i<s1.size() && s1[i]==s3[i+j])
+        ans=(ans|isInterleave_helper(s1,s2,s3,i+1,j,dp));
+        if(j<s2.size() && s2[j]==s3[i+j])
+        ans=(ans|isInterleave_helper(s1,s2,s3,i,j+1,dp));
+        return dp[i][j]=ans;
+    }
+    bool isInterleave(string s1, string s2, string s3) {
+      int a=s1.length();
+      int b=s2.length();
+      vector<vector<int>> dp(a+1,vector<int>(b+1,-1));
+      int i=0;
+      int j=0;
+      if(s1.size()+s2.size()!=s3.size()) return false;
+      return isInterleave_helper(s1,s2,s3,0,0,dp);  
+    }
+};
