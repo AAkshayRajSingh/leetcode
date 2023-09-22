@@ -1,0 +1,19 @@
+class Solution {
+public:
+    string sortVowels(string s) {
+        string vowel="aeiouAEIOU";
+        vector<char> vowel_char;
+        vector<int> vowel_pos;
+        for(int i=0;i<s.size();i++){
+            if(vowel.find(s[i])!=string::npos){
+                vowel_char.push_back(s[i]);
+                vowel_pos.push_back(i);
+            }
+        }
+        sort(vowel_char.begin(),vowel_char.end());
+        for(int i=0;i<vowel_char.size();i++){
+            s[vowel_pos[i]]=vowel_char[i];
+        }
+        return s;
+    }
+};
