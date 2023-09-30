@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int longestSubarray(vector<int>& nums) {
+        int i=0;
+        int j=0;
+        int n=nums.size();
+        int not_one=0;
+        int max_ans=INT_MIN;
+        while(j<n){
+            if(nums[j]!=1){
+                not_one++;
+            }
+            while(not_one>1){
+                if(nums[i]!=1){
+                    not_one--;
+                }
+                i++;
+            }
+            j++;
+            max_ans=max(max_ans,j-i-1);
+        }
+        return max_ans;
+    }
+};
