@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int solve(int index,vector<int>& arr, int k,vector<int> &dp){
+        int n=arr.size();
+         if (index==n)
+        {
+            return 0;
+        }
+        int maxi=INT_MIN;
+        int max_Ans=INT_MIN;
+        //int sum=0;
+        int len=0;
+        if(dp[index]!=-1) return dp[index];
+       
+        for(int j=index;j<min(n,index+k);j++){
+            len++;
+            maxi=max(maxi,arr[j]);
+            int sum=len*maxi+solve(j+1,arr,k,dp);
+            max_Ans=max(max_Ans,sum);
+        }
+        return dp[index]= max_Ans;
+    }
+    int maxSumAfterPartitioning(vector<int>& arr, int k) {
+        int n=arr.size();
+        vector<int> dp(n,-1);
+        return solve(0,arr,k,dp);
+    }
+};
