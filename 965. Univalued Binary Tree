@@ -1,0 +1,12 @@
+class Solution {
+public:
+    bool func(TreeNode* root,int v){
+        if(root==0) return true;
+        else if(root->val!=v) return false;
+        return func(root->left,v) && func(root->right,v);
+    }
+    bool isUnivalTree(TreeNode* root) {
+        if(root==0) return true;
+        return func(root,root->val);
+    }
+};
