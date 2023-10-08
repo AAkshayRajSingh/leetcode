@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int numTeams(vector<int>& r) {
+        int n=r.size();
+        int res=0;
+        for(int i=0;i<n-1;i++){
+            int ll=0,rl=0,ls=0,rs=0;
+            for(int j=0;j<i;j++){
+                if(r[j]>r[i])
+                ll++;
+                if(r[j]<r[i])
+                ls++;
+            }
+            for(int j=i+1;j<n;j++){
+                if(r[j]>r[i])
+                rl++;
+                if(r[j]<r[i])
+                rs++;
+            }
+            res+=ll*rs+ls*rl;
+        }
+    return res;
+    }
+};
