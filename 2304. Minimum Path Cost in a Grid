@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int minPathCost(vector<vector<int>>& g, vector<vector<int>>& mC) {
+        int n=g.size();
+        int m=g[0].size();
+        vector<vector<int>> dp(n,vector<int> (m,0));
+        for(int i=0;i<m;i++){
+            dp[n-1][i]=g[n-1][i];
+        }
+        for(int i=n-2;i>=0;i--){
+            for(int j=0;j<m;j++){
+                int ans=INT_MAX;
+                for(int x=0;x<m;x++){
+                    ans=min(ans,dp[i+1][x]+mC[g[i][j]][x]);
+                }
+                dp[i][j]=ans+g[i][j];
+            }
+        }
+        return *min_element(dp[0].begin(),dp[0].end());
+    }
+};
