@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int numberOfArithmeticSlices(vector<int>& X) {
+       
+        int n1=X.size();
+         if(n1<3) return 0;
+        int start=0;
+        int end=1;
+        int sum=0;
+        for(int i=1;i<X.size();i++){
+            int diff=X[end]-X[start];
+            while(i+1<n1 && X[i+1]-X[i]==diff){
+                end++;
+                i++;
+            }
+            
+            int n=(end-start)+1;
+            if(n>=3)
+            sum+=(n-2)*(n+1-2)/2;
+            start=end;
+            end++;
+        }
+        return sum;
+    }
+};
