@@ -1,0 +1,34 @@
+class Solution {
+public:
+  vector<int> ans;
+    void Binary(vector<int> &nums,int start,int end,int target){
+       
+         if(start>end){
+             return;
+         }
+         int mid=(start)+(end-start)/2;
+            if(nums[mid]==target)
+            {
+                Binary(nums,start,mid-1,target);
+                ans.push_back(mid);
+                Binary(nums,mid+1,end,target);
+            }
+            else if(nums[mid]>target)
+            {
+                Binary(nums,start,mid-1,target);
+            }
+            else{
+                Binary(nums,mid+1,end,target);
+            }
+        
+    }
+    vector<int> targetIndices(vector<int>& nums, int target) {
+        
+        int n=nums.size();
+        sort(nums.begin(),nums.end());
+        int left=0;
+        int right=n-1;
+        Binary(nums,left,right,target);
+        return ans;
+    }
+};
