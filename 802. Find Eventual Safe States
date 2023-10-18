@@ -1,0 +1,40 @@
+class Solution {
+public:
+    bool dfsRec(int s,vector<bool> &visited,vector<bool> &dfsvisited,vector<vector<int>>& graph,vector<bool>& present_graph){
+        visited[s]=true;
+        dfsvisited[s]=true;
+        vector<int> data=graph[s];
+        for(auto x:data){
+            if(!visited[x])
+            {
+                if(dfsRec(x,visited,dfsvisited,graph,present_graph))
+                {return present_graph[s]=true;}
+            }
+            else if(visited[x] && dfsvisited[x])
+            {
+                return present_graph[s]=true;
+            }
+        }
+        dfsvisited[s]=false;
+        return false;
+    }
+    vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
+        int n=graph.size();
+        vector<int> ans;
+        vector<bool> visited(n,false),dfsvisited(n,false);
+        vector<bool> present_graph(n,false);
+        for(int i=0;i<n;i++){
+            if(!visited[i])
+            {
+                dfsRec(i,visited,dfsvisited,graph,present_graph);
+            }
+        }
+        for(int i=0;i<n;i++){
+            if(!present_graph[i])
+            {
+                ans.push_back(i);
+            }
+        }
+        return ans;
+    }
+};
