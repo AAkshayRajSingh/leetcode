@@ -1,0 +1,29 @@
+class Solution {
+public:
+    static bool cmp(pair<int,int>&a,pair<int,int>&b){
+        return a.first>b.first;
+    }
+    long long maximumImportance(int n, vector<vector<int>>& roads) {
+        long long ans=0;
+        vector<int>imp(n,0);
+        vector<int> edges(n,0);
+        for(int i=0;i<roads.size();i++){
+            edges[roads[i][0]]++;
+            edges[roads[i][1]]++;
+        }
+        vector<pair<int,int>> vec;
+        for(int i=0;i<edges.size();i++){
+            vec.push_back({edges[i],i});
+        }
+        sort(vec.begin(),vec.end(),cmp);
+        for(int i=0;i<vec.size();i++){
+            imp[vec[i].second]=n;
+            n--;
+        }
+    
+        for(int i=0;i<roads.size();i++){
+            ans+=imp[roads[i][0]]+imp[roads[i][1]];
+        }
+        return ans;
+    }
+};
