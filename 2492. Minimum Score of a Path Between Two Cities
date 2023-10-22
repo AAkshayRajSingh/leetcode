@@ -1,0 +1,25 @@
+class Solution {
+public:
+    void dfs(int node, unordered_map<int,vector<pair<int,int>>> &adj,vector<bool>&vis,int &result){
+        vis[node]=true;
+        for(auto &it:adj[node]){
+            result=min(result,it.second);
+            if(!vis[it.first])
+            {
+                dfs(it.first,adj,vis,result);
+            }
+        }
+    }
+    int minScore(int n, vector<vector<int>>& roads) {
+        unordered_map<int,vector<pair<int,int>>> adj;
+        for(auto &it:roads){
+            adj[it[0]].push_back({it[1],it[2]});
+            adj[it[1]].push_back({it[0],it[2]});
+        }
+        vector<bool>vis(n,false);
+        int result=INT_MAX;
+        dfs(1,adj,vis,result);
+
+        return result;
+    }
+};
