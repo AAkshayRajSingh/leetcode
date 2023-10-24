@@ -1,0 +1,30 @@
+class Solution {
+public:
+    bool possibleBipartition(int n, vector<vector<int>>& dislikes) {
+        vector<int> adj[n+1];
+        vector<int> mark(n+1,0);
+        for(int i=0;i<dislikes.size();i++){
+            adj[dislikes[i][0]].push_back(dislikes[i][1]);
+            adj[dislikes[i][1]].push_back(dislikes[i][0]);
+        }
+        for(int i=1;i<=n;i++){
+            if(mark[i]==0){
+                mark[i]=1;
+                queue<int> q;
+                q.push(i);
+                while(!q.empty()){
+                    int curr=q.front();
+                    q.pop();
+                    for(auto &it:adj[curr]){
+                        if(mark[it]==mark[curr]) return false;
+                        if(!mark[it]){
+                            mark[it]=-1*mark[curr];
+                            q.push(it);
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+};
