@@ -1,0 +1,35 @@
+class Solution {
+public:
+    void dfs(vector<int>adj[],int &i,vector<bool>& vis,int &counter){
+        if(vis[i]) return;
+        vis[i]=true;
+        counter++;
+        for(auto it:adj[i]){
+            if(!vis[it])
+            dfs(adj,it,vis,counter);
+        }
+    }
+    long long countPairs(int n, vector<vector<int>>& edges) {
+        vector<int>adj[n+1];
+        vector<bool>vis(n+1,false);
+        for(auto &it:edges){
+            adj[it[0]].push_back(it[1]);
+            adj[it[1]].push_back(it[0]);
+        }
+        vector<int> temp;
+        long long res=0;
+        for(int i=0;i<n;i++){
+            if(!vis[i]){
+                int counter=0;
+                dfs(adj,i,vis,counter);
+                temp.push_back(counter);
+            }
+        }
+        int total=0;
+        for(int i=0;i<temp.size();i++){
+            res+=(long)((long)temp[i]*(long)(n-total-temp[i]));
+            total+=temp[i];
+        }
+        return res;
+    }
+};
