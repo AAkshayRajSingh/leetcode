@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<int> gardenNoAdj(int n, vector<vector<int>>& paths) {
+        vector<vector<int>> x(n+1);
+        for(auto it:paths){
+            x[it[0]-1].push_back(it[1]-1);
+            x[it[1]-1].push_back(it[0]-1);
+        }
+        vector<int>colors(n,0);
+        for(int i=0;i<n;i++){
+            if(colors[i]==0){
+                colors[i]=1;
+                queue<int> q;
+                q.push(i);
+                while(!q.empty())
+                {
+                    int curr=q.front();
+                    q.pop();
+                    for(auto j:x[curr]){
+                        if(colors[j]==0 ||colors[j]==colors[curr]){
+                            colors[j]=colors[curr]+1;
+                            q.push(j);
+                        }
+                        if(colors[j]>4) colors[j]%=4;
+                    }
+                }
+            }
+        }
+        return colors;
+    }
+};
