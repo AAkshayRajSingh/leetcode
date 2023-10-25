@@ -1,0 +1,44 @@
+class Solution {
+public:
+    vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
+        int m=mat.size();
+        int n=mat[0].size();
+        vector<vector<int>> ans(m,vector<int>(n,-1));
+        queue<pair<int,int>> q;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(mat[i][j]==0){
+                   q.push({i,j});
+                    ans[i][j]=0;
+                }
+            }
+            }
+                while(!q.empty()){
+                    int r=q.front().first;
+                    int c=q.front().second;
+                  
+                    if(checkValid(r-1,c,m,n) && ans[r-1][c]==-1)              {
+                        q.push({r-1,c});
+                        ans[r-1][c]=ans[r][c]+1;
+                    }
+                    if(checkValid(r,c-1,m,n) && ans[r][c-1]==-1)              {
+                       q.push({r,c-1});
+                        ans[r][c-1]=ans[r][c]+1;
+                    }
+                    if(checkValid(r,c+1,m,n) && ans[r][c+1]==-1)              {
+                       q.push({r,c+1});
+                        ans[r][c+1]=ans[r][c]+1;
+                    }
+                    if(checkValid(r+1,c,m,n) && ans[r+1][c]==-1)              {
+                        q.push({r+1,c});
+                        ans[r+1][c]=ans[r][c]+1;
+                    }
+                       q.pop();
+        }
+        return ans;
+    }
+    bool checkValid(int r,int c,int m,int n){
+            if(r<0 || c<0 || r>=m || c>=n )return false;
+            return true;
+        }
+};
