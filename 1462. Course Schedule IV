@@ -1,0 +1,35 @@
+class Solution {
+public:
+    void bfs(vector<vector<int>> &adj_list,vector<vector<bool>> &visited,int v){
+         queue<int> q;
+         q.push(v);
+         while(!q.empty()){
+             auto temp=q.front();
+             q.pop();
+             for(auto it:adj_list[temp]){
+                 if(!visited[v][it]){
+                     visited[v][it]=true;
+                     q.push(it);
+                 }
+             }
+         }
+    }
+    vector<bool> checkIfPrerequisite(int numCourses, vector<vector<int>>& prerequisites, vector<vector<int>>& queries) {
+        //int n=queries.size();
+        int n=numCourses;
+        vector<vector<int>> adj_list(n);
+        
+        for(auto i=0;i<prerequisites.size();i++){
+            adj_list[prerequisites[i][0]].push_back(prerequisites[i][1]);
+        }
+        vector<bool> res(queries.size(),false);
+        vector<vector<bool>> visited(n,vector<bool>(n,false));
+        for(auto i=0;i<n;i++){
+            bfs(adj_list,visited,i);
+        }
+        for(auto i=0;i<queries.size();i++){
+            res[i]=visited[queries[i][0]][queries[i][1]];
+        }
+        return res;
+    }
+};
