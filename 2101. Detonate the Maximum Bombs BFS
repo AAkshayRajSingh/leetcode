@@ -1,0 +1,63 @@
+class Solution {
+public:
+    typedef long long ll;
+   /* void dfs(int i,unordered_set<int> &visited,  unordered_map<int,vector<int>> &adj){
+        visited.insert(i);
+        for(auto &it:adj[i]){
+            if(visited.find(it)==visited.end())
+            {
+                dfs(it,visited,adj);
+            
+            }
+        }
+    }*/
+    int bfs(int i,unordered_map<int,vector<int>>& adj_list)
+{
+    unordered_set<int> visited;
+    visited.insert(i);
+    queue<int> q;
+    q.push(i);
+    while(!q.empty()){
+        int curr=q.front();
+        q.pop();
+        for(auto &it:adj_list[curr]){
+            if(visited.find(it)==visited.end())
+            {
+                visited.insert(it);
+                q.push(it);
+            }
+        }
+    }
+    return visited.size();
+       
+}    int maximumDetonation(vector<vector<int>>& bombs) {
+        int n=bombs.size();
+        unordered_map<int,vector<int>> adj;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(i==j) continue;
+                ll x1=bombs[i][0];
+                ll y1=bombs[i][1];
+                ll r1=bombs[i][2];
+
+                ll x2=bombs[j][0];
+                ll y2=bombs[j][1];
+                ll r2=bombs[j][2];
+
+                ll dist=(x2-x1)*(x2-x1)+(y2-y1)*(y2-y1);
+                if(ll(r1*r1)>=dist){
+                    adj[i].push_back(j);
+                }
+            }
+        }
+           int result=0;
+            
+            for(int i=0;i<n;i++){
+                
+                int count=bfs(i,adj);
+                result=max(result,count);
+                
+            }
+        return result;
+    }
+};
