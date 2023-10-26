@@ -1,0 +1,30 @@
+class Solution {
+public:
+    bool dfs(vector<vector<int>>&graph,vector<int>&colors,vector<int> &res,int v){
+        colors[v]=1;
+        for(auto it:graph[v]){
+            if(colors[it]==1) return true;
+            if(colors[it]==0){
+                if(dfs(graph,colors,res,it)) return true;
+            }
+        }
+        colors[v]=2;
+        res.push_back(v);
+        return false;
+    }
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        int n=numCourses;
+        vector<int>color(n,0),res;
+        vector<vector<int>>graph(n);
+        for(int i=0;i<prerequisites.size();i++){
+            graph[prerequisites[i][0]].push_back(prerequisites[i][1]);
+        }
+        for(int i=0;i<n;i++){
+           if(!color[i]) {
+              if( dfs(graph,color,res,i))
+               return {};
+               }
+        }
+        return res;
+    }
+};
