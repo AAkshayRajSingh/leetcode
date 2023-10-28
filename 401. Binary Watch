@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<string> readBinaryWatch(int num) {
+        int mask=1<<10;
+        vector<string> ans;
+        for(int i=0;i<mask;i++){
+            if(__builtin_popcount(i)==num)
+            {
+                int hr=i>>6;
+                int mn=(hr<<6)^i;
+            
+            if(hr<12 && mn<60){
+                ans.push_back(to_string(hr)+((mn<10)?":0" : ":")+to_string(mn));
+            }
+            }
+        }
+        return ans;
+    }
+};
