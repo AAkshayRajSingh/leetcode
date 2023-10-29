@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int numTilePossibilities(string tiles) {
+        set<string> st;
+        string s;
+        map<int,int> mp;
+        solve(s,st,mp,tiles);
+        return st.size();
+    }
+    void solve(string &s,set<string> &st,
+     map<int,int> &mp,string tiles){
+         int n=tiles.size();
+         for(int i=0;i<n;i++){
+             if(mp[i]!=1){
+            s.push_back(tiles[i]);
+             mp[i]=1;
+             st.insert(s);
+             solve(s,st,mp,tiles);
+             mp[i]=0;
+             s.pop_back();}
+         }
+     }
+};
