@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool func(int i,string str,int x){
+        if(i==str.size() && x==0)return true;
+        bool res=false;
+        for(int j=i;j<str.size();j++){
+            int cv=stoi(str.substr(i,j-i+1));
+            if(cv>x) break;
+            res=func(j+1,str,x-cv);
+            if(res) return true;
+        }
+        return false;
+    }
+    int punishmentNumber(int n) {
+       int ts=0,i,x;
+       for(i=1;i<=n;i++){
+           int x=i*i;
+           string str=to_string(x);
+
+           if(func(0,str,i))
+           ts+=x;
+       }
+       return ts;
+    }
+};
