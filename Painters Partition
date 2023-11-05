@@ -1,0 +1,37 @@
+int countPainters(vector<int>&boards,int PaintHold){
+    int painters=1;
+    long long paintHolding=0;
+    for(int i=0;i<boards.size();i++){
+        if(paintHolding+boards[i]<=PaintHold){
+            paintHolding+=boards[i];
+        }
+        else{
+            painters++;
+            paintHolding=boards[i];
+        }
+    }
+    return painters;
+}
+int FindPainters(vector<int>& boards,int n,int k){
+    if(k>n){
+        return -1;
+    }
+    int left=*max_element(boards.begin(),boards.end());
+    int right=accumulate(boards.begin(),boards.end(),0);
+    while(left<=right){
+        int mid=(left+right)/2;
+        int painters=countPainters(boards,mid);
+        if(painters>k){
+            left=mid+1;
+        }
+        else{
+            right=mid-1;
+        }
+    }
+    return left;
+}
+int findLargestMinDistance(vector<int> &boards, int k)
+{
+    //    Write your code here.
+    return FindPainters(boards,boards.size(),k);
+}
