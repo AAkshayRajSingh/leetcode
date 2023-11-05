@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int Val1(vector<int>&nums,int maxHolding){
+        int maxval=1;
+        long long maxHoldVal=0;
+        for(int i=0;i<nums.size();i++){
+            if(maxHoldVal+nums[i]<=maxHolding){
+                maxHoldVal+=nums[i];
+            }
+            else{
+                maxval+=1;
+                maxHoldVal=nums[i];
+            }
+        }
+        return maxval;
+    }
+    int findVal(vector<int>&nums,int n,int k){
+        if(k>n) return -1;
+        int low=*max_element(nums.begin(),nums.end());
+        int high=accumulate(nums.begin(),nums.end(),0);
+       while(low<=high)
+       {
+           int mid=(low+high)/2;
+            int val=Val1(nums,mid);
+            if(val>k){
+                low=mid+1;
+            }
+            else{
+                high =mid-1;
+            }
+        }
+        return low;
+    }
+    int splitArray(vector<int>& nums, int k) {
+        return findVal(nums,nums.size(),k);
+    }
+};
