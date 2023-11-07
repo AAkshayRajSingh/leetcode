@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int maximumSwap(int num) {
+        string str=to_string(num);
+        int max_idx=-1;
+        int max_digit=INT_MIN;
+        int left_idx=-1;int right_idx=-1;
+        for(int i=str.size()-1;i>=0;--i){
+            if(str[i]>max_digit){
+                max_digit=str[i];
+                max_idx=i;
+            }
+            if(str[i]<max_digit){
+                left_idx=i;
+                right_idx=max_idx;
+            }
+        }
+        if(left_idx==-1) return num;
+        swap(str[left_idx],str[right_idx]);
+        return stoi(str);
+    }
+};
