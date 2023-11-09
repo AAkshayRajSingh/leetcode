@@ -1,0 +1,38 @@
+class Solution {
+public:
+    string reorganizeString(string s) {
+        map<char,int> mp;
+        for(int i=0;i<s.size();i++){
+            mp[s[i]]++;
+        }
+        int l=s.length();
+        int maxi=0;
+        string res="";
+        priority_queue<pair<int,char>> pq;
+        for(auto it:mp){
+            maxi=max(maxi,it.second);
+            pq.push({it.second,it.first});
+        }
+        if(maxi>(l+1)/2){
+            return "";
+        }
+        while(pq.size()){
+            auto ptr=pq.top();
+            pq.pop();
+            res+=ptr.second;
+            if(pq.size()){
+                auto ptr1=pq.top();
+                pq.pop();
+                res+=ptr1.second;
+                
+                if(ptr1.first>1){
+                    pq.push({ptr1.first-1,ptr1.second});
+                }
+            }
+            if(ptr.first>1){
+                pq.push({ptr.first-1,ptr.second});
+            }
+        }
+        return res;
+    }
+};
