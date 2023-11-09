@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int maxChunksToSorted(vector<int>& arr) {
+        vector<pair<int,int>> ax;
+        for(int i=0;i<arr.size();i++){
+            ax.push_back({arr[i],i});
+        }
+        sort(ax.begin(),ax.end(),[](const pair<int,int>&a,const pair<int,int>&b){
+            if(a.first!=b.first) return a.first<b.first;
+            return a.second<b.second;
+        });
+        int n=ax.size();
+       int ans=0;
+       int sum=0;
+       for(int i=0;i<n;i++){
+           sum+=(i-ax[i].second);
+           if(sum==0)
+           {
+               ans++;
+           }
+       }
+       return ans;
+    }
+};
