@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int numRabbits(vector<int>& answers) {
+        unordered_map<int,int> mp;
+        for(auto it:answers){
+            mp[it]++;
+        }
+        int ans=0;
+        for(auto it=mp.begin();it!=mp.end();it++){
+            int a=(*it).first;
+            int b=(*it).second;
+            int q=b/(a+1);
+            int r=b%(a+1);
+
+            ans+=q*(a+1);
+            if(r!=0){
+                ans+=(a+1);
+            }
+        }
+        return ans;
+    }
+};
