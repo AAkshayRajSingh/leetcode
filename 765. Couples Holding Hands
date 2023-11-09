@@ -1,0 +1,28 @@
+class Solution {
+public:
+    void swapVal(vector<int>& row,int i,int j,
+    map<int,int> &mp){
+        int temp=row[i];
+        row[i]=row[j];
+        row[j]=temp;
+
+        mp[row[i]]=i;
+        mp[row[j]]=j;
+    }
+    int minSwapsCouples(vector<int>& row) {
+        map<int,int> mp;
+        for(int i=0;i<row.size();i++){
+            mp[row[i]]=i;
+        }
+        int swaps=0;
+        for(int i=0;i<row.size();i+=2){
+            int first=row[i];
+            int second=first^1;
+            if(row[i+1]!=second){
+                swaps++;
+                swapVal(row,i+1,mp[second],mp);
+            }
+        }
+        return swaps;
+    }
+};
