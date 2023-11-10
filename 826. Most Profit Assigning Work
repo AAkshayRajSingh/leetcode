@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int maxProfitAssignment(vector<int>& difficulty, vector<int>& profit, vector<int>& worker) {
+        vector<pair<int,int>> x;
+        int n=difficulty.size();
+        for(int i=0;i<n;i++){
+            x.push_back({difficulty[i],profit[i]});
+        }
+        sort(x.begin(),x.end());
+        sort(worker.begin(),worker.end());
+        int job=0;
+        int totalProfit=0;
+        int currProfit=0;
+        for(int i=0;i<worker.size();i++){
+            while(job<n && worker[i]>=x[job].first){
+               currProfit=max(currProfit,x[job].second);
+               job++;
+            }
+            totalProfit+=currProfit;
+        }
+        return totalProfit;
+    }
+};
