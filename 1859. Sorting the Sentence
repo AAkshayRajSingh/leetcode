@@ -1,0 +1,28 @@
+class Solution {
+public:
+    string sortSentence(string s) {
+        vector<string> vec;
+        string temp;
+        string res;
+        for(char c:s){
+            if(c==' '){
+                temp.insert(temp.begin(),
+                temp[temp.size()-1]);
+                temp.erase(temp.end()-1);
+                vec.push_back(temp);
+                temp="";
+            }
+            else temp.push_back(c);
+        }
+        temp.insert(temp.begin(),temp[temp.size()-1]);
+        temp.erase(temp.end()-1);
+        vec.push_back(temp);
+        sort(vec.begin(),vec.end());
+        for(string st:vec){
+            st.erase(st.begin());
+            res+=st+" ";
+        }
+        res.erase(res.end()-1);
+        return res;
+    }
+};
