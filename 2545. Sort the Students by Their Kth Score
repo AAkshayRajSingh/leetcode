@@ -1,0 +1,12 @@
+class Solution {
+public:
+    void sortStu(vector<vector<int>>& students,int k){
+        sort(students.begin(),students.end(),[k](vector<int>& a ,vector<int>& b){
+            return a[k]>b[k];
+        });
+    }
+    vector<vector<int>> sortTheStudents(vector<vector<int>>& score, int k) {
+        sortStu(score,k);
+        return score;
+    }
+};
