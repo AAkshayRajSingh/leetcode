@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int solve(vector<int> col){
+        sort(col.begin(),col.end(),greater<int>());
+        int height=INT_MAX,ans=0;
+        for(int i=0;i<col.size();i++){
+            height=min(height,col[i]);
+            ans=max(ans,height*(i+1));
+        }
+        return ans;
+    }
+    int largestSubmatrix(vector<vector<int>>& matrix) {
+        int m=matrix.size();
+        int n
+        =matrix[0].size();
+        vector<int> col(n,0);
+        int ans=0;
+        for(int r=0;r<m;r++){
+            for(int c=0;c<n;c++){
+                if(matrix[r][c]==0){
+                    col[c]=0;
+                }
+                else{
+                    col[c]++;
+                }
+            }
+            ans=max(ans,solve(col));
+        }
+        return ans;
+    }
+};
