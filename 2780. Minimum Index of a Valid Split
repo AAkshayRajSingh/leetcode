@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int minimumIndex(vector<int>& nums) {
+        int n=nums.size();
+        map<int,int> mp;
+        int maxi=INT_MIN;
+        int ele;
+        for(int i=0;i<n;i++){
+            mp[nums[i]]++;
+            if(mp[nums[i]]>maxi){
+                maxi=mp[nums[i]];
+                ele=nums[i];
+            }
+        }
+        map<int,int> mp2;
+        int count=mp[ele];
+        if(2*count<=n) return -1;
+        for(int i=0;i<n;i++){
+            if(nums[i]!=ele) continue;
+            mp2[nums[i]]++;
+            if((2*mp2[nums[i]]) > (i+1)){
+                if(2*(count-mp2[nums[i]])>(n-i-1)) return i;
+            }
+        }
+        return -1;
+    }
+};
