@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int matrixSum(vector<vector<int>>& nums) {
+        int n=nums.size();
+        for(auto i=0;i<n;i++){
+            sort(nums[i].begin(),nums[i].end());
+        }
+        int m=nums[0].size();
+        int ans=0;
+        for(int col=m-1;col>=0;col--){
+            int maxi=INT_MIN;
+            for(int row=0;row<n;row++){
+                if(col<nums[row].size()){
+                    maxi=max(maxi,nums[row][col]);
+                }
+            }
+            if(maxi!=INT_MIN)
+            ans+=maxi;
+        }
+      return ans;
+    }
+};
