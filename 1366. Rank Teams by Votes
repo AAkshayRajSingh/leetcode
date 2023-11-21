@@ -1,0 +1,34 @@
+class Solution {
+public:
+    string rankTeams(vector<string>& votes) {
+       set<char>st;
+       vector<char> arr;
+       map<pair<int,int> ,int>mp;
+       for(int i=0;i<votes.size();i++){
+           int count=1;
+           for(auto ele:votes[i]){
+           if(st.find(ele)==st.end()){
+              arr.push_back(ele);
+               st.insert(ele);
+           }
+           mp[{ele,count}]++;
+           count++;
+           }
+       }
+       int size=votes[0].size();
+       sort(arr.begin(),arr.end(),[&mp,&size](char a,char b){
+           for(int i=1;i<=size;i++){
+           if(mp[{a,i}]!=mp[{b,i}]){
+               return mp[{a,i}]>mp[{b,i}];
+           }
+       }
+       return a<b;
+       });
+       string ans="";
+       for(auto ele:arr){
+           ans+=ele;
+       }
+       return ans;
+
+    }
+};
