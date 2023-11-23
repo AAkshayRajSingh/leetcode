@@ -1,0 +1,29 @@
+typedef long long int ll;
+const int MOD=1e9+7;
+class Solution {
+public:
+    int maximumXorProduct(long long a, long long b, int n) {
+        ll x_a=0;
+        ll x_b=0;
+        for(ll j=49;j>=n;j--){
+        bool set_a=(a&(1LL <<j))>0;
+        bool set_b=(b&(1LL<<j))>0;
+        if(set_a) x_a^=(1LL <<j);
+        if(set_b) x_b^=(1LL<<j);
+        }
+        for(ll j=n-1;j>=0;j--){
+        bool set_a=(a&(1LL <<j))>0;
+        bool set_b=(b&(1LL<<j))>0;
+        if(set_a==set_b){
+         x_a^=(1LL <<j);
+         x_b^=(1LL<<j);
+            continue;
+        }
+            if(x_a>x_b) x_b^=(1LL<<j);
+            else x_a^=(1LL<<j);
+        }
+        x_a%=MOD;
+        x_b%=MOD;
+        return (x_a*x_b)%MOD;
+    }
+};
