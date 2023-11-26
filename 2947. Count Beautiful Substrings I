@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int beautifulSubstrings(string s, int k) {
+        int n=s.size();
+        int res=0;
+        vector<char> cc={'a','e','i','o','u'};
+        for(int j=0;j<n;j++){
+            int v=0,c=0;
+            for(int i=j;i<n;i++){
+                if(std::find(cc.begin(),cc.end(),s[i])!=cc.end()){
+                    v++;
+                }
+                else
+                c++;
+
+                if(c==v && (c*v)%k==0)
+                res+=1;
+            }
+        }
+        return res;
+    }
+};
