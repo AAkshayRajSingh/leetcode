@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int maximizeSquareHoleArea(int n, int m, vector<int>& hBars, vector<int>& vBars) {
+        sort(hBars.begin(),hBars.end());
+        sort(vBars.begin(),vBars.end());
+        int currContHBars=1;
+        int maxContHBars=1;
+        for(int i=0;i<hBars.size()-1;i++){
+            if(hBars[i]+1==hBars[i+1]){
+                currContHBars++;
+            }
+            else
+                currContHBars=1;
+            maxContHBars=max(maxContHBars,currContHBars);
+        }
+        int currContVBars=1;
+        int maxContVBars=1;
+        for(int i=0;i<vBars.size()-1;i++){
+            if(vBars[i]+1==vBars[i+1]){
+                currContVBars++;
+            }
+            else
+                currContVBars=1;
+            maxContVBars=max(maxContVBars,currContVBars);
+        }
+        int square=min(maxContHBars,maxContVBars)+1;
+        return square*square;
+    }
+};
