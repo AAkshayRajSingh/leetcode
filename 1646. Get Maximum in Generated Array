@@ -1,0 +1,18 @@
+class Solution {
+public:
+int max3(int a,int b,int c){
+    return max(a,max(b,c));
+}
+    int getMaximumGenerated(int n) {
+        int nums[110]={0,};
+        int maxValue=min(n,1);
+        nums[0]=0;
+        nums[1]=1;
+        for(int i=1;i<(int)(n+1)/2;i++){
+            nums[2*i]=nums[i];
+            nums[2*i+1]=nums[i]+nums[i+1];
+             maxValue = max3(maxValue, nums[2*i], nums[2*i+1]);
+        }
+        return maxValue;
+    }
+};
