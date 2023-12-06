@@ -1,0 +1,23 @@
+// The API isBadVersion is defined for you.
+// bool isBadVersion(int version);
+
+class Solution {
+public:
+    int firstBadVersion(int n) {
+        long long int s = 1;
+        long long int e = n;
+        long long int minBadVersion = n; // Initialize minBadVersion with the highest possible value
+
+        while (s <= e) {
+            long long int mid = s + (e - s) / 2; // To prevent integer overflow
+            if (isBadVersion(mid)) {
+                minBadVersion = mid;
+                e = mid - 1;
+            } else {
+                s = mid + 1;
+            }
+        }
+
+        return minBadVersion;
+    }
+};
