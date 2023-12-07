@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool canCross(vector<int>& stones) {
+        unordered_map<int,unordered_set<int>>dp;
+        dp[1]={1};
+        for(int i=1;i<stones.size();i++){
+            for(auto jumpSize:dp[stones[i]]){
+            dp[stones[i]+jumpSize].insert(jumpSize);
+            dp[stones[i]+jumpSize+1].insert(jumpSize+1);
+            dp[stones[i]+jumpSize-1].insert(jumpSize-1);
+        }
+        
+        }
+        return dp[stones.back()].size()!=0;
+    }
+};
