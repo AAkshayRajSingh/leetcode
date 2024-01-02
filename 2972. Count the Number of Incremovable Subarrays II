@@ -1,0 +1,21 @@
+class Solution {
+public:
+    long long incremovableSubarrayCount(vector<int>& nums) {
+        vector<int> lastInc;
+        lastInc.push_back(nums.back());
+        for(int i=nums.size()-2;i>=0;i--){
+            if(nums[i]>=nums[i+1]) break;
+            lastInc.push_back(nums[i]);
+        }
+        reverse(lastInc.begin(),lastInc.end());
+        if(nums.size()==lastInc.size())
+        return (nums.size()*(nums.size()+1)/2);
+        long long ans=1+lastInc.size(),n=nums.size();
+        for(int i=0,last=-1;i<n;++i){
+            if(nums[i]<=last) break;
+            last=nums[i];
+            ans+=lastInc.end()-upper_bound(lastInc.begin(),lastInc.end(),nums[i])+1;
+        }
+        return ans;
+            }
+};
