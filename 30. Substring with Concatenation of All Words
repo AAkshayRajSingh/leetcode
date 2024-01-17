@@ -1,0 +1,35 @@
+class Solution {
+public:
+    bool isValid(unordered_map<string,int> mp,string s,int eachWordLen){
+        for(int j=0;j<s.size();j+=eachWordLen){
+            string w=s.substr(j,eachWordLen);
+            if(mp.find(w)!=mp.end()){
+                if(--mp[w]==-1)
+                return false;
+            }
+            else
+            return false;
+        }
+        return true;
+    }
+    vector<int> findSubstring(string s, vector<string>& words) {
+        vector<int> res;
+        int eachwordLen=words[0].size();
+        int completeWords=words.size();
+        int totalSubsequence=eachwordLen*completeWords;
+        int sLen=s.size();
+        unordered_map<string,int> mp;
+        for(int i=0;i<words.size();i++){
+            mp[words[i]]++;
+        }
+        int i=0;
+        while(i+totalSubsequence<=sLen){
+            if(isValid(mp,s.substr(i,totalSubsequence),eachwordLen))
+            {
+                res.push_back(i);
+            }
+            i++;
+        }
+        return res;
+    }
+};
