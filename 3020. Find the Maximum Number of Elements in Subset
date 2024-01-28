@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int maximumLength(vector<int>& nums) {
+        unordered_map<double,int> mp;
+        for(int i=0;i<nums.size();i++){
+            mp[nums[i]]++;
+        }
+        int ans=1;
+        for(int i=nums.size()-1;i>=0;i--){
+            if(nums[i]==1){
+                if(mp[nums[i]]!=1)
+                ans=max(ans,mp[nums[i]]-(mp[nums[i]]%2==0));
+                continue;
+            }
+            double sqroot=sqrt(nums[i]);
+            int maxi=1;
+            while(mp[sqroot]>=2){
+                maxi+=2;
+                sqroot=sqrt(sqroot);
+            }
+            ans=max(maxi,ans);
+        }
+        return ans;
+    }
+};
