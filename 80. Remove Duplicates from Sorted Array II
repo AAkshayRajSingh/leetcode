@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int removeDuplicates(vector<int>& ans) {
+    map<int,int> mp;
+      for(auto it:ans){
+          mp[it]++;
+      } 
+      int k=0;
+      
+      for(auto &i:mp){
+          if(i.second==1){
+              ans[k++]=i.first;
+          }
+         else if(i.second>=2){
+              ans[k++]=i.first;
+              ans[k++]=i.first;
+          }
+      }
+      return k;
+    }
+};
