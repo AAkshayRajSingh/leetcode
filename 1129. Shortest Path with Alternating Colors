@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<int> shortestAlternatingPaths(int n, vector<vector<int>>& redEdges, vector<vector<int>>& blueEdges) {
+        vector<int> dis(n,-1);
+        vector<pair<int,int>> adj[n+1];
+        for(auto it:redEdges){
+            adj[it[0]].push_back({it[1],1});
+        }
+        for(auto it:blueEdges){
+            adj[it[0]].push_back({it[1],2});
+        }
+        queue<vector<int>> q;
+        q.push({0,0,-1});
+        while(!q.empty()){
+            auto currNode=q.front();
+            q.pop();
+            int curr=currNode[0];
+            int edgeColor=currNode[2];
+            if(dis[curr]==-1){
+                dis[curr]=currNode[1];
+            }
+            for(auto &children:adj[curr]){
+                int childrenNode=children.first;
+                int edgeColorOfChild=children.second;
+                if(childrenNode!=-1 && (edgeColor==-1 || edgeColorOfChild!=edgeColor)){
+                    q.push({childrenNode,currNode[1]+1,edgeColorOfChild});
+                    children.first=-1;
+                }
+            }
+        }
+        return dis;
+    }
+};
