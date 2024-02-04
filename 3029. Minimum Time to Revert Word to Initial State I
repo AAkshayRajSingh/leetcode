@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool isEqual(string revWord,string word){
+        int n=word.size();
+        for(int i=0;i<n;i++){
+            if(revWord[i]!='*' && word[i]!=revWord[i])
+            return false;
+        }
+        return true;
+    }
+    int minimumTimeToInitialState(string word, int k) {
+        int n=word.size();
+        string revWord=word;
+        int count=0;
+        
+        do{
+            revWord=revWord.substr(k)+string(k,'*');
+            count++;
+        }while(!isEqual(revWord,word));
+        return count;
+    }
+};
