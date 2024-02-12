@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int countMatchingSubarrays(vector<int>& nums, vector<int>& pattern) {
+        int count=0;
+        int pSize=pattern.size();
+        int n=nums.size();
+        for(int i=0;i<n-pSize+1;i++){
+                bool matches=true;
+                for(int x=0;x<pattern.size();x++){
+                    if(pattern[x]==0 && (x + i + 1 >= n || nums[i + x + 1] != nums[i + x])){
+                        matches=false;
+                        break;
+                    }
+                    if(pattern[x]==1 && (x + i + 1 >= n || nums[i + x + 1] <= nums[i + x])){
+                       matches=false;
+                        break;
+                    }
+                    if(pattern[x]==-1 && (x + i + 1 >= n  || nums[i + x + 1] >= nums[i + x])){
+                        matches=false;
+                        break;
+                    }
+            }
+            if(matches)
+                count++;
+        }
+        return count;
+    }
+};
