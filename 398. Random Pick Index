@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<int> arr;
+    int n;
+    Solution(vector<int>& nums) {
+        n=nums.size();
+        arr=nums;
+    }
+    
+    int pick(int target) {
+        int random=rand()%n;
+            if(arr[random]==target){
+               return random;
+            }
+            else
+            return pick(target);
+        }
+    
+};
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution* obj = new Solution(nums);
+ * int param_1 = obj->pick(target);
+ */
