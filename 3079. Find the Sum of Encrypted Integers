@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int sumOfEncryptedInt(vector<int>& nums) {
+        int sum=0;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]<10){
+                sum+=nums[i];
+            }
+            else{
+                int max_val=INT_MIN;
+                int count=0;
+                while(nums[i]!=0){
+                    int temp=nums[i]%10;
+                    max_val=max(max_val,temp);
+                    nums[i]=nums[i]/10;
+                    count++;
+                }
+                for(int i=count;i>0;i--){
+                    sum+=(max_val*(pow(10,i-1)));
+                }
+            }
+        }
+        return sum;
+    }
+};
