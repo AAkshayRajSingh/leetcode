@@ -1,0 +1,9 @@
+class Solution:
+    def minOperations(self, k: int) -> int:
+        ans=k
+        if k==1:
+            return 0
+        for i in range(1,k//2+1):
+            t= (i-1) + math.ceil(k/i)-1
+            ans=min(ans,t)
+        return ans
