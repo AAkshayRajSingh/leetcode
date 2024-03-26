@@ -1,0 +1,8 @@
+class Solution:
+    def numberOfMatches(self, n: int) -> int:
+        result=0
+        while n>=2:
+            matches=n//2
+            result+=matches
+            n-=matches
+        return result
