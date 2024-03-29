@@ -1,0 +1,11 @@
+class Solution:
+    def thirdMax(self, nums: List[int]) -> int:
+        st=set()
+        for i in nums:
+            st.add(i)
+            if len(st)>3:
+                st.remove(min(st))
+        if len(st)<3:
+            return max(st)
+        else:
+            return min(st)
