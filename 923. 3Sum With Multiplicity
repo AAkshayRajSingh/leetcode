@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int threeSumMulti(vector<int>& arr, int target) {
+        unordered_map<int,long> freq;
+        long count=0;
+        int mod=1e9+7;
+        for(int i=0;i<arr.size();i++){
+            for(int j=i+1;j<arr.size();j++){
+                int complement=target-arr[i]-arr[j];
+                if(freq.find(complement)!=freq.end()){
+                    count=(count+freq[complement])%mod;
+                }
+            }
+            freq[arr[i]]++;
+        }
+        return count;
+    }
+};
