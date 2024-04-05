@@ -1,0 +1,17 @@
+class Solution {
+public:
+int ans=1e9,target;
+    void solve(int curr,int idx,int freq,vector<int>& tc){
+        if(abs(curr-target)<abs(ans-target)) ans=curr;
+        else if(abs(curr-target)==abs(ans-target) &&curr<ans) ans=curr;
+        if(curr> target || idx==tc.size()) return;
+        if(freq<2) solve(curr+tc[idx],idx,freq+1,tc);
+        solve(curr,idx+1,0,tc);
+    }
+    int closestCost(vector<int>& baseCosts, vector<int>& tC, int t) {
+        int n=tC.size();
+        target=t;
+        for(auto x:baseCosts) solve(x,0,0,tC);
+        return ans;
+    }
+};
