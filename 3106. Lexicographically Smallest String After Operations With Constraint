@@ -1,0 +1,27 @@
+class Solution {
+public:
+    string getSmallestString(string s, int k) {
+       string ans="";
+       int n=s.size();
+       for(int i=0;i<n;i++){
+        int f=0;
+        for(char ch='a';ch<='z';ch++){
+            int d1=s[i]-ch;
+            if(d1<=0){
+                break;
+            }
+            int d2=26-d1;
+            int d=min(d1,d2);
+            if(d<=k){
+                f=1;
+                ans.push_back(ch);
+                k=k-d;
+                break;
+            }
+        }
+        if(f==0)
+            ans.push_back(s[i]);
+       } 
+       return ans;
+    }
+};
