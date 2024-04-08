@@ -1,0 +1,25 @@
+class Solution:
+    def solve(self,nums: List[int],k:int,idx :int) -> int:
+        n=len(nums)
+        m=nums[idx]
+        ans=0
+        if m<k:
+            ans=ans+k-m
+            for i in range(idx+1,n):
+                if nums[i]<=k:
+                    ans=ans+k-nums[i]
+                else:
+                    break
+        elif m>k:
+            ans=ans+m-k
+            for i in range(idx-1,-1,-1):
+                if nums[i]>=k:
+                    ans=ans+nums[i]-k
+                else:
+                    break
+        return ans
+    def minOperationsToMakeMedianK(self, nums: List[int], k: int) -> int:
+        nums.sort()
+        n=len(nums)
+        ans=self.solve(nums,k,n//2)
+        return ans
