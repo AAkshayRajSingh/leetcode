@@ -1,0 +1,35 @@
+class Solution {
+public:
+    long long solve(vector<int> &nums,int k,int idx){
+        int m=nums[idx];
+        long long ans=0;
+        int n=nums.size();
+        if(m<k){
+            ans=ans+k-m;
+            for(int i=idx+1;i<n;i++){
+                if(nums[i]<=k){
+                    ans=ans+k-nums[i];
+                }
+                else 
+                    break;
+            }
+        }
+        else if (m>k){
+                ans=ans+m-k;
+            for(int i=idx-1;i>=0;i--){
+                if(nums[i]>=k){
+                    ans=ans+nums[i]-k;
+                }
+                else 
+                    break;
+            }
+        }
+        return ans;
+    }
+    long long minOperationsToMakeMedianK(vector<int>& nums, int k) {
+        int n=nums.size();
+        long long ans=0;
+        sort(nums.begin(),nums.end());
+        return ans=solve(nums,k,n/2);
+    }
+};
