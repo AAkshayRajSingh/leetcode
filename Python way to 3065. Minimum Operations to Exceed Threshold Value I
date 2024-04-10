@@ -1,0 +1,8 @@
+class Solution:
+    def minOperations(self, nums: List[int], k: int) -> int:
+        n=len(nums)
+        c=0
+        for i in range(0,n):
+            if nums[i] >= k:
+                c=c+1
+        return n-c
