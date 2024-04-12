@@ -1,0 +1,24 @@
+class Solution {
+public:
+    void solve(vector<int>& nums,vector<vector<int>> &ans,vector<int> &subans,int i){
+        int n=nums.size();
+        if(i>=n){
+            if(subans.size()>1)
+                ans.push_back(subans);
+            return;
+        }
+        if(subans.empty() || nums[i]>=subans.back()){
+            subans.push_back(nums[i]);
+            solve(nums,ans,subans,i+1);
+            subans.pop_back();
+        }
+        if(!subans.size() || nums[i]!=subans.back())
+        solve(nums,ans,subans,i+1);
+    }
+    vector<vector<int>> findSubsequences(vector<int>& nums) {
+        vector<vector<int>> ans;
+        vector<int>subans;
+        solve(nums,ans,subans,0);
+        return ans;
+    }
+};
