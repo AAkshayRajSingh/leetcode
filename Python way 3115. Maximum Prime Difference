@@ -1,0 +1,24 @@
+
+from typing import List
+import sys
+
+class Solution:
+    @staticmethod
+    def isPrime(n: int) -> bool:
+        if n <= 1:
+            return False
+        for i in range(2, int(n**0.5) + 1):
+            if n % i == 0:
+                return False
+        return True
+
+    def maximumPrimeDifference(self, nums: List[int]) -> int:
+        max_val = -sys.maxsize - 1
+        min_val = sys.maxsize
+        for i in range(len(nums)):
+            if self.isPrime(nums[i]):
+                max_val = max(max_val, i)
+                min_val = min(min_val, i)
+        if max_val != -sys.maxsize - 1 and min_val != sys.maxsize:
+            return max_val - min_val
+        return -1  # or any default value indicating no prime numbers found
