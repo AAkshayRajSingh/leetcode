@@ -1,0 +1,29 @@
+class Solution {
+public:
+    bool isPrime(int n){
+        if(n<=1)
+            return false;
+        for(int i=2;i<=n/2;i++){
+            if(n%i==0)
+                return false;
+        }
+        return true ;
+    }
+    int maximumPrimeDifference(vector<int>& nums) {
+        int max_index=INT_MIN;
+        int min_index=INT_MAX;
+        for(int i=0;i<nums.size();i++){
+            if(isPrime(nums[i])){
+                min_index=min(i,min_index);
+                cout<<min_index<<endl;
+                max_index=max(i,max_index);
+                cout<<'--'<<endl;
+                cout<<max_index<<endl;
+            }
+        }
+        int ans=0;
+        if (max_index!=INT_MIN && min_index!=INT_MAX)
+        ans=max_index-min_index;
+        return ans;
+    }
+};
