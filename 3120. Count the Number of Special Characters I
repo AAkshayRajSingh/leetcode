@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int numberOfSpecialChars(string word) {
+        set<int> st;
+        for(char c:word){
+            if (islower(c))
+                st.insert(c);
+        }
+        set<int> st1;
+        for(char x:word){
+            if(isupper(x)){
+                if(st.find(tolower(x))!=st.end()){
+                    st1.insert(x);
+                }
+            }
+        }
+        return st1.size();
+    }
+};
