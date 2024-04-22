@@ -1,0 +1,15 @@
+class Solution:
+    def numberOfSpecialChars(self, word: str) -> int:
+        n=len(word)
+        count=0
+        for i in range(26):
+            v1=[]
+            v2=[]
+            for j in range(n):
+                if ord(word[j]) - ord('a') == i:
+                    v1.append(j)
+                if ord(word[j]) - ord('A') == i:
+                    v2.append(j)
+            if len(v1) >0 and len(v2) >0 and v1[-1] < v2[0]:
+                    count+=1
+        return count
