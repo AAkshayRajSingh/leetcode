@@ -1,0 +1,26 @@
+class Solution:
+    def minimumRounds(self, tasks: List[int]) -> int:
+        ans=0
+        mp={}
+        for i in tasks:
+            if i in mp:
+                mp[i]+=1
+            else:
+                mp[i]=1
+        for x in mp.values():
+            if x==1:
+                ans=-1
+                break
+            elif x==2 :
+                ans+=1
+            elif x>=3:
+                val=x%3
+                if val==0:
+                    ans+=x//3
+                elif val==1:
+                    ans+=1
+                    ans+=x//3
+                elif val==2:
+                    ans+=1
+                    ans+=x//3
+        return ans
