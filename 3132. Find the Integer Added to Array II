@@ -1,0 +1,24 @@
+class Solution {
+public:
+    bool check(vector<int> &n1,vector<int> &n2,int k){
+        int count=0,j=0;
+        for(int i=0;i<n1.size() && j<n2.size();i++){
+            if(n1[i]+k!=n2[j]) count++;
+            else j++;
+        }
+        if(count>2) return 0;
+        return 1;
+    }
+    int minimumAddedInteger(vector<int>& nums1, vector<int>& nums2) {
+        int min_ele=INT_MAX;
+        sort(nums1.begin(),nums1.end());
+        sort(nums2.begin(),nums2.end());
+        for(int i=0;i<3;i++){
+           int x=nums2[0]-nums1[i];
+           if(check(nums1,nums2,x)){
+            min_ele=min(min_ele,x);
+           }
+        }
+        return min_ele;
+    }
+};
